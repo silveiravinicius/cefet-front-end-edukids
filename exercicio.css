@@ -3,28 +3,101 @@
  */
  #controles ul {
 
+    -webkit-transition: 400ms linear; 
+    -moz-transition: 400ms linear; 
+    -o-transition: 400ms linear;
+    transition: 400ms linear
+
  }
 
 /*
  * Exercício 2: Você deve implementar uma metáfora visual para cada um dos 4
  * estados dos animais. Algumas *sugestões*:
  *   - com-fome: animal piscando (opacidade variando)
- *   - satisfeito: uma borda verde no animal e o animal fica girando de alegria
+ *   - satisfeito: uma borda verde no animal e o animal fica girando de alegria e depois some 
  *   - com-raiva: animal fica pulsando
  *   - atacando: animal dá um salto e cresce, com uma borda vermelha
+ *   - esconder : animal cresce e some
  */
 .com-fome {
+    animation: piscando .5s ease-in-out 0s infinite alternate,
+               flutuando .5s ease-in-out 0s infinite alternate;
+    position: relative;
+}
 
+@keyframes piscando {
+    from { opacity: 1.0; }
+    to   { opacity: 0.7; }
+}
+ 
+@keyframes flutuando {
+    from { top: 0;     }
+    to   { top: -30px; }
 }
 
 .satisfeito {
 
+    animation: girando 0.5s ease-in-out 0s infinite alternate,
+              comer .30s ease-in-out 0s infinite alternate,
+              sumindo .30s ease-in-out 0s infinite alternate;
+
 }
+
+@keyframes girando {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(-360deg); }
+  }
+ 
+  @keyframes comer {
+      0%   { background: #6c5228; }  33%  { background: #48a037; }
+      66%  { background: #48a037; }  100% { background: #6c5228; } /*fica verde*/
+  }
+
+  @keyframes sumindo {
+    from { opacity: 1; top: 0;      width: 100px; left: 0     }
+    to   { opacity: 0; top: -200px; width: 20px;  left: 40px; }
+  }
 
 .com-raiva {
-
+    animation: pirando 600ms ease-in 3s 1 forwards,
+               girando-costas 3600ms ease-in 1 forwards,
+               bravo .30s ease-in-out 0s infinite alternate;
+               
 }
 
+@keyframes pirando {
+    from { opacity: 1; top: 0;      width: 100px; left: 0     }
+    to   { opacity: 0; top: -200px; width: 20px;  left: 40px; }
+  }
+
+  @keyframes girando-costas {
+    from { transform: rotateY(0); }
+    to   { transform: rotateY(3600deg); }
+  }
+
+  @keyframes bravo {
+    0%   { background: #FA8072; }  33%  { background: #FF6347; }
+    66%  { background: #FF4500; }  100% { background: #FF0000; } /*fica vermelho*/
+  }
 .atacando {
-  
+    animation: pulsa .30s ease-in-out 0s infinite alternate,
+               bravo .30s ease-in-out 0s infinite alternate;
 }
+
+@keyframes pulsa {
+from {transform: scale(0)}
+to {transform: scale(1)}
+}
+
+.comecar, .parar {
+    width: 24px;
+    height: 24px;
+    background-image: url('imgs/sprite.png');
+  }
+  
+  .parar {
+    background-position: 0 24px;
+  }
+
+
+ 
